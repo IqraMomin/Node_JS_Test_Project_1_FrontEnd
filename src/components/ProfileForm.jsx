@@ -1,9 +1,26 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { ProfileContext } from '../context/ProfileContext';
+
+const initialState = {
+    name:'',dob:'',url:'',birthplace:'',career:'',matches:'',score:'',fifties:'',centuries:'',wickets:'',average:''
+}
 
 function ProfileForm() {
-    const [formData,setFormData] = useState({
-        name:'',bob:'',url:'',birthplace:'',career:'',matches:'',score:'',fifties:'',centuries:'',wickets:'',average:''
-    });
+    const [formData,setFormData] = useState(initialState);
+    const profileCtx = useContext(ProfileContext);
+    const isEdit = profileCtx.isEdit;
+
+    useEffect(()=>{
+        if(isEdit){
+            setFormData({
+                name:isEdit.name||"",dob:isEdit.dob||"",url:isEdit.url||'',birthplace:isEdit.birthplace||'',
+                career:isEdit.career||'',matches:isEdit.matches||'',score:isEdit.score||'',fifties:isEdit.fifties||'',
+                centuries:isEdit.centuries||'',wickets:isEdit.wickets||'',average:isEdit.average||''
+            })
+        }else{
+            resetForm();
+        }
+    })
 
     const handleChange=(e)=>{
         const {name,value} = e.target;
@@ -29,7 +46,17 @@ function ProfileForm() {
 
     const formSubmitHandler = (e)=>{
         e.preventDefault();
-        console.log(formData);
+        if(isEdit){
+            profileCtx.updateUser(isEdit.id,formData);
+            profileCtx.isEditHandler(null);
+        }else{
+            profileCtx.addUser(formData);
+        }
+        resetForm();
+    }
+
+    const resetForm = ()=>{
+        setFormData(initialState);
     }
 
     return (
