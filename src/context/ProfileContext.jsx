@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import axios from "axios";
 
 export const ProfileContext = createContext();
 
@@ -36,7 +37,7 @@ export const ProfileProvider = ({children})=>{
         try{
             const res = await axios.get(`http://localhost:3000/users/`);
             console.log(res.data);
-            setExpenses(res.data);
+            setUser(res.data);
         }
         catch(err){
             console.log(err);

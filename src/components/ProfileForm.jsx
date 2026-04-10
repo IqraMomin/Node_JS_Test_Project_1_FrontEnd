@@ -20,7 +20,7 @@ function ProfileForm() {
         }else{
             resetForm();
         }
-    })
+    },[isEdit])
 
     const handleChange=(e)=>{
         const {name,value} = e.target;
@@ -75,7 +75,7 @@ function ProfileForm() {
                 )
                 )}
                 <div>
-                    <button type='submit'>Submit</button>
+                    <button type='submit'>{isEdit ? "Edit Profile" : "Add Profile"}</button>
                 </div>
             </form> 
         </div>
