@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { ProfileContext } from '../context/ProfileContext'
+import "./ProfilePage.css"
 
 function ProfilePage() {
     const profileCtx = useContext(ProfileContext);
@@ -17,10 +18,10 @@ function ProfilePage() {
 
     const searchHandler = (e)=>{
         e.preventDefault();
-        const profile = user.find(ele=>ele.name.includes(search));
-        if(profile){
-            setActiveProfile(profile);
-        }
+        const profile = user.find(ele=>(
+            ele.name.toLowerCase().includes(search.toLowerCase())
+        ));
+        setActiveProfile(profile);
     }
 
     return (
@@ -34,7 +35,22 @@ function ProfilePage() {
             </form>
             </div>
             <div>
-           {activeProfile && <p>{activeProfile.name}</p> } 
+           {activeProfile && <div className='profile-div'>
+            <div>
+                <img width="250px" height="250px" src={activeProfile.url}/>
+                <p>DOB: {activeProfile.dob}</p>
+                <p>Birthplace: {activeProfile.birthplace}</p>
+                <p>Score: {activeProfile.score}</p>               
+                <p>Number of Wickets: {activeProfile.wickets}</p>
+                <p>Fifties: {activeProfile.fifties}</p>
+                <p>Centuries: {activeProfile.centuries}</p>
+                <p>Average: {activeProfile.average}</p>                               
+                </div>
+                <div>
+                <p>Career: {activeProfile.career}</p>
+                </div>
+
+            </div> } 
             </div>
         </div>
         
