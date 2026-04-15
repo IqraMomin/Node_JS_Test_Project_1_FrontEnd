@@ -1,5 +1,12 @@
 .profile-div{
-    display: flex;
-    justify-content: center;
     width: 100%;
+}
+.search-div{
+    display: flex;
+    width: 100%;
+    justify-content: end;
+    margin-top: 80px;
+}
+.search-form{
+    display: flex;
 }

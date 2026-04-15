@@ -48,7 +48,7 @@ export const ProfileProvider = ({children})=>{
         try{
             const res = await axios.put(`http://localhost:3000/users/updateUser/${id}`,user);
             console.log(res.data);
-            setUser(prev=>prev.map(ele=>ele.id===id ? {...user,id}:ele));
+            setUser(prev=>prev.map(ele=>ele.id===id ? {...res.data}:ele));
         }
         catch(err){
             console.log(err);
